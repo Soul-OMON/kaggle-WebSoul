@@ -56,7 +56,7 @@ webui_selection = {
     'ReForge': "--xformers --cuda-stream --pin-shared-memory",
     'ComfyUI': "--dont-print-server --preview-method auto --use-pytorch-cross-attention",
     'Forge': "--opt-sdp-attention --cuda-stream --cuda-malloc --pin-shared-memory",  # Remove: --disable-xformers
-    'SwarmUI': "--launch_mode none'"
+    'SwarmUI': "--launch_mode none"
 }
 
 # Initialize the WidgetFactory
