@@ -11,7 +11,8 @@ WEBUI_PATHS = {
     'A1111': ('Stable-diffusion', 'VAE', 'Lora', 'embeddings', 'extensions', 'ESRGAN', 'outputs'),
     'ReForge': ('Stable-diffusion', 'VAE', 'Lora', 'embeddings', 'extensions', 'ESRGAN', 'outputs'),
     'ComfyUI': ('checkpoints', 'vae', 'loras', 'embeddings', 'custom_nodes', 'upscale_models', 'output'),
-    'Forge': ('Stable-diffusion', 'VAE', 'Lora', 'embeddings', 'extensions', 'ESRGAN', 'outputs')
+    'Forge': ('Stable-diffusion', 'VAE', 'Lora', 'embeddings', 'extensions', 'ESRGAN', 'outputs'),
+    'SwarmUI': ('Stable-Diffusion', 'VAE', 'Lora', 'Embeddings', 'Extensions', 'upscale_models', 'Output')
 }
 
 def update_current_webui(current_value):
@@ -32,7 +33,7 @@ def _set_webui_paths(ui):
         return
 
     webui = HOME / ui
-    models = webui / 'models'
+    models = webui / ('models' if ui != 'SwarmUI' else 'Models')
     checkpoint, vae, lora, embed, extension, upscale, webui_output = WEBUI_PATHS[ui]
 
     model_dir = models / checkpoint

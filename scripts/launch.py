@@ -141,7 +141,7 @@ update_config_paths(f'{WEBUI}/config.json', paths_to_check)
 launcher = 'main.py' if UI == 'ComfyUI' else 'launch.py'
 password = 'vo9fdxgc0zkvghqwzrlz6rk2o00h5sc7'
 
-# Ыуегз pinggy timer
+# Setup pinggy timer
 get_ipython().system(f'echo -n {int(time.time())+(3600+15)} > {WEBUI}/static/timer-pinggy.txt')
 
 with tunnel:
@@ -149,13 +149,13 @@ with tunnel:
     commandline_arguments += f' --port={tunnel_port}'
     
     # Default args append
-    if UI != 'ComfyUI':
-        commandline_arguments += ' --disable-console-progressbars --theme dark'
+    if UI not in ['ComfyUI', 'SwarmUI']:
+        commandline_arguments += '  --enable-insecure-extension-access --disable-console-progressbars --theme dark'
         # NSFW filter for Kaggle
         if ENV_NAME == "Kaggle":
             commandline_arguments += f' --encrypt-pass={password} --api'
     
-    ## Launch
+    ## ComfyUI req
     if UI == 'ComfyUI':
         if check_custom_nodes_deps:
             get_ipython().system('{py} install-deps.py')
@@ -163,8 +163,17 @@ with tunnel:
         subprocess.run(['pip', 'install', '-r', 'requirements.txt'], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         clear_output(wait=True)
 
+    ## Launch
     print(f"🔧 WebUI: \033[34m{UI} \033[0m")
-    get_ipython().system(f'{py} {launcher} {commandline_arguments}')
+
+    if UI == 'SwarmUI':
+        os.environ['SWARMPATH'] = str(Path.cwd())
+        os.environ['SWARM_NO_VENV'] = 'true'
+        get_ipython().system('pip install -q rembg')
+        get_ipython().system('git pull -q')
+        get_ipython().system(f'bash ./launch-linux.sh {commandline_arguments}')
+    else:
+        get_ipython().system(f'{py} {launcher} {commandline_arguments}')
 
 # Print session duration
 timer = float(open(f'{WEBUI}/static/timer.txt', 'r').read())
