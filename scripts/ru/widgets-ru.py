@@ -28,13 +28,6 @@ def read_model_data(file_path, data_type):
     Reads model, VAE, or ControlNet data from the specified file.
 
     The function loads data from a Python script and returns the corresponding list of model names based on the specified data type.
-
-    Parameters:
-    ----------
-    file_path : str
-        The path to the file containing model data in Python format.
-    data_type : str
-        The type of data to extract: "model", "vae", or "cnet".
     """
     local_vars = {}
     
@@ -108,7 +101,7 @@ civitai_token_widget = factory.create_text('Токен CivitAI:', '', 'Введ�
 huggingface_token_widget = factory.create_text('Токен HuggingFace:')
 
 zrok_token_widget = factory.create_text('Токен Zrok:')
-zrok_button = factory.create_html('<a href="https://colab.research.google.com/drive/1d2sjWDJi_GYBUavrHSuQyHTDuLy36WpU" target="_blank">Зарегать Zrok Токен</a>', class_names=["button", "button_ngrok"])
+zrok_button = factory.create_html('<a href="https://colab.research.google.com/drive/1d2sjWDJi_GYBUavrHSuQyHTDuLy36WpU" target="_blank">Зарегать Zrok Токен</a>', class_names=["button", "button_zrok"])
 zrok_widget = factory.create_hbox([zrok_token_widget, zrok_button])
 
 commandline_arguments_widget = factory.create_text('Аргументы:', webui_selection['A1111'])

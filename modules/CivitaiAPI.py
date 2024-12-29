@@ -1,4 +1,4 @@
-''' CivitAi API | ANXETY'''
+""" CivitAi API | by ANXETY """
 
 from urllib.parse import urlparse, parse_qs
 import requests
@@ -36,7 +36,8 @@ class CivitAiAPI:
 
             return requests.get(f"{self.base_url}/model-versions/{version_id}").json()
         except (KeyError, IndexError, requests.RequestException) as e:
-            print(f"\033[31m[Error]:\033[0m {e}")
+            print(f'\033[31m---' * 25)
+            print(f"\033[31m[CivitAI API Error]:\033[0m {e}")
             return None
 
     def fetch_data(self, url):
@@ -45,10 +46,26 @@ class CivitAiAPI:
         data = self._get_model_data(url)
 
         if not data:
-            print("\033[31m[Data Info]:\033[0m Failed to retrieve data from the API.\n")
+            print("\033[31m[Data Info]:\033[0m Failed to retrieve data from the API.")
             return None
 
         return data
+
+    def check_early_access(self, data):
+        """Check if the model is in early access and requires payment."""
+        early_access = data.get("earlyAccessConfig")
+        if early_access and early_access.get("chargeForDownload", False):
+            model_id = data.get("modelId")
+            version_id = data.get("id")
+
+            print(f'\n' + '\033[31m---' * 25)
+            print("\033[34m[CivitAI API]:\033[0m The model is in early access and requires payment for downloading.")
+
+            if model_id and version_id:
+                page = f"https://civitai.com/models/{model_id}?modelVersionId={version_id}"
+                print(f"\033[32m[CivitAI Page]:\033[0m {page}\n")
+            return True
+        return False
 
     def get_model_info(self, data, url, file_name):
         """Extract model type and name from the data."""

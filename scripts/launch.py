@@ -112,7 +112,7 @@ if not public_ipv4:
     public_ipv4 = get_public_ip(version='ipv4')
     update_json(SETTINGS_PATH, "ENVIRONMENT.public_ip", public_ipv4)
 
-tunnel_port = 8188 if UI == 'ComfyUI' else 7860
+tunnel_port = 7801 if UI == 'SwarmUI' else (8188 if UI == 'ComfyUI' else 7860)
 tunnel = Tunnel(tunnel_port)
 tunnel.logger.setLevel(logging.DEBUG)
 
@@ -142,20 +142,20 @@ launcher = 'main.py' if UI == 'ComfyUI' else 'launch.py'
 password = 'vo9fdxgc0zkvghqwzrlz6rk2o00h5sc7'
 
 # Setup pinggy timer
-get_ipython().system(f'echo -n {int(time.time())+(3600+15)} > {WEBUI}/static/timer-pinggy.txt')
+get_ipython().system(f'echo -n {int(time.time())+(3600+20)} > {WEBUI}/static/timer-pinggy.txt')
 
 with tunnel:
     os.chdir(WEBUI)
     commandline_arguments += f' --port={tunnel_port}'
     
     # Default args append
-    if UI not in ['ComfyUI', 'SwarmUI']:
-        commandline_arguments += '  --enable-insecure-extension-access --disable-console-progressbars --theme dark'
+    if UI != 'ComfyUI':
+        commandline_arguments += ' --enable-insecure-extension-access --disable-console-progressbars --theme dark'
         # NSFW filter for Kaggle
         if ENV_NAME == "Kaggle":
             commandline_arguments += f' --encrypt-pass={password} --api'
     
-    ## ComfyUI req
+    ## Launch
     if UI == 'ComfyUI':
         if check_custom_nodes_deps:
             get_ipython().system('{py} install-deps.py')
@@ -163,7 +163,6 @@ with tunnel:
         subprocess.run(['pip', 'install', '-r', 'requirements.txt'], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         clear_output(wait=True)
 
-    ## Launch
     print(f"🔧 WebUI: \033[34m{UI} \033[0m")
 
     if UI == 'SwarmUI':

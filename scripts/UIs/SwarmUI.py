@@ -48,6 +48,7 @@ async def download_files(file_list):
     await asyncio.gather(*tasks)
 
 async def download_configuration():
+    extensions_list = []
     os.makedirs(EXTS, exist_ok=True)
     os.chdir(EXTS)
 
@@ -61,7 +62,7 @@ async def download_configuration():
     
     # await asyncio.gather(*tasks)
     
-    ## install dotnet
+    ## Install dotnet
     dirs = ['Stable-Diffusion', 'Lora', 'Embeddings', 'VAE', 'upscale_models']
     for sub in dirs:
         (WEBUI / sub).mkdir(parents=True, exist_ok=True)

@@ -33,7 +33,7 @@ def _set_webui_paths(ui):
         return
 
     webui = HOME / ui
-    models = webui / ('models' if ui != 'SwarmUI' else 'Models')
+    models = webui / 'Models' if ui == 'SwarmUI' else webui / 'models'
     checkpoint, vae, lora, embed, extension, upscale, webui_output = WEBUI_PATHS[ui]
 
     model_dir = models / checkpoint
