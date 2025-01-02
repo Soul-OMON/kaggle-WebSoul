@@ -332,7 +332,7 @@ def process_files(scr_path, files_dict, branch, parent_folder=''):
 
         if isinstance(contents, list):
             for file in contents:
-                file_url = urljoin(f"https://raw.githubusercontent.com/anxety-solo/{repo}/{branch}/", f"{parent_folder}{folder}/{file}")
+                file_url = urljoin(f"https://raw.githubusercontent.com/Soul-OMON/{repo}/{branch}/", f"{parent_folder}{folder}/{file}")
                 file_path = folder_path / file
                 file_list.append((file_url, file_path))
 

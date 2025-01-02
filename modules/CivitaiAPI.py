@@ -9,7 +9,7 @@ class CivitAiAPI:
     SUPPORT_TYPES = {'Checkpoint', 'TextualInversion', 'LORA'}
 
     def __init__(self, civitai_token=None):
-        self.token = civitai_token or "65b66176dcf284b266579de57fbdc024"    # FAKE
+        self.token = civitai_token or "48cfff69a5dcaeb387e7c242f447eda4"    # my
         self.base_url = "https://civitai.com/api/v1"
 
     def _prepare_url(self, url):
