@@ -1,9 +1,8 @@
 ## MODEL
 
 model_list = {
-    "1. Anime (by XpucT) + INP": [
-        {"url": "https://huggingface.co/XpucT/Anime/resolve/main/Anime_v2.safetensors", "name": "Anime_V2.safetensors"},
-        {"url": "https://huggingface.co/XpucT/Anime/resolve/main/Anime_v2-inpainting.safetensors", "name": "Anime_V2-inpainting.safetensors"}
+    "1. flux1-schnell-fp8": [
+        {"url": "https://huggingface.co/UmeAiRT/ComfyUI-Auto_installer/resolve/main/models/unet/flux1-schnell-fp8.safetensors", "name": "flux1-schnell-fp8"},
     ],
     "2. BluMix [Anime] [V7] + INP": [
         {"url": "https://civitai.com/api/download/models/361779", "name": "BluMix_V7.safetensors"},
