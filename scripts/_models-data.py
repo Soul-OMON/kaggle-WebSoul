@@ -38,9 +38,8 @@ model_list = {
 ## VAE
 
 vae_list = {
-    "1. Anime.vae": [
-      {"url": "https://huggingface.co/fp16-guy/anything_kl-f8-anime2_vae-ft-mse-840000-ema-pruned_blessed_clearvae_fp16_cleaned/resolve/main/kl-f8-anime2_fp16.safetensors", "name": "Anime-kl-f8.vae.safetensors"},
-      {"url": "https://huggingface.co/fp16-guy/anything_kl-f8-anime2_vae-ft-mse-840000-ema-pruned_blessed_clearvae_fp16_cleaned/resolve/main/vae-ft-mse-840000-ema-pruned_fp16.safetensors", "name": "Anime-mse.vae.safetensors"}
+    "1. ae": [
+      {"url": "https://huggingface.co/UmeAiRT/ComfyUI-Auto_installer/resolve/main/models/vae/ae.safetensors", "name": "ae"},
     ],
     "2. Anything.vae": [{"url": "https://huggingface.co/fp16-guy/anything_kl-f8-anime2_vae-ft-mse-840000-ema-pruned_blessed_clearvae_fp16_cleaned/resolve/main/anything_fp16.safetensors", "name": "Anything.vae.safetensors"}],
     "3. Blessed2.vae": [{"url": "https://huggingface.co/fp16-guy/anything_kl-f8-anime2_vae-ft-mse-840000-ema-pruned_blessed_clearvae_fp16_cleaned/resolve/main/blessed2_fp16.safetensors", "name": "Blessed2.vae.safetensors"}],
