@@ -27,32 +27,20 @@ def read_model_data(file_path, data_type):
     """Read model data from file."""
     local_vars = {}
     
-    print(f"Reading {data_type} data from {file_path}")  # Отладочный вывод
-    
     with open(file_path, 'r', encoding='utf-8') as f:
         content = f.read()
         exec(content, {}, local_vars)
     
-    # Проверяем, какие данные есть в файле
-    print(f"Available keys in local_vars: {list(local_vars.keys())}")  # Отладочный вывод
-    
-    data_key = f'{data_type.upper()}_DATA'
-    data = local_vars.get(data_key, {})
-    
-    print(f"Data for {data_key}: {list(data.keys())}")  # Отладочный вывод
-    
-    if not data:
-        print(f"No data found for {data_key}")  # Отладочный вывод
-        return ['none']
-    
     if data_type == 'model':
-        return list(data.keys())
-    elif data_type in ['vae', 'clip', 'controlnet']:
-        base_options = ['none', 'ALL']
-        additional_options = [k for k in data.keys() if k not in base_options]
-        return base_options + additional_options
-    else:
-        return list(data.keys())
+        return list(local_vars.get('model_list', {}).keys())
+    elif data_type == 'vae':
+        return list(local_vars.get('vae_list', {}).keys())
+    elif data_type == 'clip':
+        return list(local_vars.get('clip_list', {}).keys())
+    elif data_type == 'cnet':
+        return ['none', 'ALL'] + list(local_vars.get('controlnet_list', {}).keys())
+    
+    return ['none']
 
 webui_selection = {
     'A1111': "--xformers --no-half-vae",
@@ -89,7 +77,7 @@ print(f"VAE options: {vae_options}")  # Отладочный вывод
 vae_widget = factory.create_dropdown(
     options=vae_options,
     description='Vae:',
-    value='none'
+    value=vae_options[0] if vae_options else 'none'
 )
 vae_num_widget = factory.create_text('Номер Vae:', '', 'Введите номера vae для скачивания.')
 

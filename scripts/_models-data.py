@@ -1,52 +1,65 @@
 ## MODEL
 
 model_list = {
-    "1. Anime (by XpucT) + INP": [
-        {"url": "https://huggingface.co/XpucT/Anime/resolve/main/Anime_v2.safetensors", "name": "Anime_V2.safetensors"},
-        {"url": "https://huggingface.co/XpucT/Anime/resolve/main/Anime_v2-inpainting.safetensors", "name": "Anime_V2-inpainting.safetensors"}
-    ],
-    "2. BluMix [Anime] [V7] + INP": [
-        {"url": "https://civitai.com/api/download/models/361779", "name": "BluMix_V7.safetensors"},
-        {"url": "https://civitai.com/api/download/models/363850", "name": "BluMix_V7-inpainting.safetensors"}
-    ],
-    "3. Cetus-Mix [Anime] [V4] + INP": [
-        {"url": "https://huggingface.co/fp16-guy/Cetus-Mix_v4_fp16_cleaned/resolve/main/cetusMix_v4_fp16.safetensors", "name": "CetusMix_V4.safetensors"},
-        {"url": "https://huggingface.co/fp16-guy/Cetus-Mix_v4_fp16_cleaned/resolve/main/cetusMix_v4_inp_fp16.safetensors", "name": "CetusMix_V4-inpainting.safetensors"}
-    ],
-    "4. Counterfeit [Anime] [V3] + INP": [
-        {"url": "https://huggingface.co/fp16-guy/Counterfeit-V3.0_fp16_cleaned/resolve/main/CounterfeitV30_v30_fp16.safetensors", "name": "Counterfeit_V3.safetensors"},
-        {"url": "https://huggingface.co/fp16-guy/Counterfeit-V3.0_fp16_cleaned/resolve/main/CounterfeitV30_v30_inp_fp16.safetensors", "name": "Counterfeit_V3-inpainting.safetensors"}
-    ],
-    "5. CuteColor [Anime] [V3]": [
-        {"url": "https://civitai.com/api/download/models/138754", "name": "CuteColor_V3.safetensors"}
-    ],
-    "6. Dark-Sushi-Mix [Anime]": [
-        {"url": "https://civitai.com/api/download/models/101640", "name": "DarkSushiMix_2_5D.safetensors"},
-        {"url": "https://civitai.com/api/download/models/56071", "name": "DarkSushiMix_colorful.safetensors"}
-    ],
-    "7. Meina-Mix [Anime] [V11] + INP": [
-        {"url": "https://civitai.com/api/download/models/119057", "name": "MeinaMix_V11.safetensors"},
-        {"url": "https://civitai.com/api/download/models/120702", "name": "MeinaMix_V11-inpainting.safetensors"}
-    ],
-    "8. Mix-Pro [Anime] [V4] + INP": [
-        {"url": "https://huggingface.co/fp16-guy/MIX-Pro-V4_fp16_cleaned/resolve/main/mixProV4_v4_fp16.safetensors", "name": "MixPro_V4.safetensors"},
-        {"url": "https://huggingface.co/fp16-guy/MIX-Pro-V4_fp16_cleaned/resolve/main/mixProV4_v4_inp_fp16.safetensors", "name": "MixPro_V4-inpainting.safetensors"},
-        {"url": "https://huggingface.co/fp16-guy/MIX-Pro-V4.5_fp16_cleaned/resolve/main/mixProV45Colorbox_v45_fp16.safetensors", "name": "MixPro_V4_5.safetensors"},
-        {"url": "https://huggingface.co/fp16-guy/MIX-Pro-V4.5_fp16_cleaned/resolve/main/mixProV45Colorbox_v45_inp_fp16.safetensors", "name": "MixPro_V4_5-inpainting.safetensors"}
-    ]
+    "1. Stable Diffusion XL Base": {
+        "url": "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_base_1.0.safetensors",
+        "filename": "sd_xl_base_1.0.safetensors"
+    },
+    "2. Stable Diffusion v1.5": {
+        "url": "https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned.safetensors",
+        "filename": "v1-5-pruned.safetensors"
+    },
+    "3. Realistic Vision V5.1": {
+        "url": "https://civitai.com/api/download/models/130072",
+        "filename": "realisticVisionV51.safetensors"
+    },
+    "4. Counterfeit [Anime] [V3]": {
+        "url": "https://civitai.com/api/download/models/57618",
+        "filename": "CounterfeitV30.safetensors"
+    },
+    "5. DreamShaper XL": {
+        "url": "https://civitai.com/api/download/models/126688",
+        "filename": "dreamshaper_8.safetensors"
+    },
+    "6. RevAnimated": {
+        "url": "https://civitai.com/api/download/models/46846",
+        "filename": "revAnimated_v122.safetensors"
+    },
+    "7. Deliberate v3": {
+        "url": "https://civitai.com/api/download/models/15236",
+        "filename": "deliberate_v3.safetensors"
+    },
+    "8. AnythingV5": {
+        "url": "https://civitai.com/api/download/models/30163",
+        "filename": "anything-v5.safetensors"
+    }
 }
 
 ## VAE
 
 vae_list = {
-    "1. Anime.vae": [
-        {"url": "https://huggingface.co/fp16-guy/anything_kl-f8-anime2_vae-ft-mse-840000-ema-pruned_blessed_clearvae_fp16_cleaned/resolve/main/kl-f8-anime2_fp16.safetensors", "name": "Anime-kl-f8.vae.safetensors"},
-        {"url": "https://huggingface.co/fp16-guy/anything_kl-f8-anime2_vae-ft-mse-840000-ema-pruned_blessed_clearvae_fp16_cleaned/resolve/main/vae-ft-mse-840000-ema-pruned_fp16.safetensors", "name": "Anime-mse.vae.safetensors"}
-    ],
-    "2. Anything.vae": [{"url": "https://huggingface.co/fp16-guy/anything_kl-f8-anime2_vae-ft-mse-840000-ema-pruned_blessed_clearvae_fp16_cleaned/resolve/main/anything_fp16.safetensors", "name": "Anything.vae.safetensors"}],
-    "3. Blessed2.vae": [{"url": "https://huggingface.co/fp16-guy/anything_kl-f8-anime2_vae-ft-mse-840000-ema-pruned_blessed_clearvae_fp16_cleaned/resolve/main/blessed2_fp16.safetensors", "name": "Blessed2.vae.safetensors"}],
-    "4. ClearVae.vae": [{"url": "https://huggingface.co/fp16-guy/anything_kl-f8-anime2_vae-ft-mse-840000-ema-pruned_blessed_clearvae_fp16_cleaned/resolve/main/ClearVAE_V2.3_fp16.safetensors", "name": "ClearVae_23.vae.safetensors"}],
-    "5. WD.vae": [{"url": "https://huggingface.co/NoCrypt/resources/resolve/main/VAE/wd.vae.safetensors", "name": "WD.vae.safetensors"}]
+    "none": "Пропустить",
+    "ALL": "Загрузить все",
+    "1. SD-VAE": {
+        "url": "https://huggingface.co/stabilityai/sd-vae-ft-mse-original/resolve/main/vae-ft-mse-840000-ema-pruned.safetensors",
+        "filename": "vae-ft-mse-840000-ema-pruned.safetensors"
+    },
+    "2. kl-f8-anime2": {
+        "url": "https://huggingface.co/hakurei/waifu-diffusion-v1-4/resolve/main/vae/kl-f8-anime2.ckpt",
+        "filename": "kl-f8-anime2.vae"
+    },
+    "3. Blessed2.vae": {
+        "url": "https://civitai.com/api/download/models/30161",
+        "filename": "blessed2.vae.pt"
+    },
+    "4. SD-XL.vae": {
+        "url": "https://huggingface.co/stabilityai/sdxl-vae/resolve/main/sdxl_vae.safetensors",
+        "filename": "sdxl_vae.safetensors"
+    },
+    "5. Counterfeit-XL.vae": {
+        "url": "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_offset.safetensors",
+        "filename": "sd_xl_offset.safetensors"
+    }
 }
 
 ## CONTROLNET
@@ -108,33 +121,9 @@ controlnet_list = {
     ]
 }
 
-MODEL_DATA = {
-    "Stable Diffusion XL Base": {
-        "url": "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_base_1.0.safetensors",
-        "filename": "sd_xl_base_1.0.safetensors"
-    },
-    "Stable Diffusion v1.5": {
-        "url": "https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned.safetensors",
-        "filename": "v1-5-pruned.safetensors"
-    },
-    "Realistic Vision V5.1": {
-        "url": "...",
-        "filename": "..."
-    },
-    # ... остальные модели ...
-}
-
-VAE_DATA = {
+clip_list = {
     "none": "Пропустить",
     "ALL": "Загрузить все",
-    "1. SD-VAE": {
-        "url": "...",
-        "filename": "..."
-    },
-    # ... остальные VAE ...
-}
-
-CLIP_DATA = {
     "1. CLIP-ViT-H-14": {
         "url": "https://huggingface.co/laion/CLIP-ViT-H-14-laion2B-s32B-b79K/resolve/main/model.safetensors",
         "filename": "clip-vit-h-14.safetensors"
