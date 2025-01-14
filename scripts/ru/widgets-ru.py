@@ -159,12 +159,36 @@ additional_widget_list = [
 # --- CUSTOM DOWNLOAD ---
 """Create custom download widgets."""
 custom_download_header = factory.create_header('Пользовательская Загрузка')
-custom_download_widget = factory.create_text(
-    'URL:',
+custom_download_header_popup = factory.create_header('🔗 Пользовательские ссылки')
+
+# URL widgets
+Model_url_widget = factory.create_text('Model URL:', '', 'Введите прямую ссылку на модель')
+Vae_url_widget = factory.create_text('VAE URL:', '', 'Введите прямую ссылку на VAE')
+LoRA_url_widget = factory.create_text('LoRA URL:', '', 'Введите прямую ссылку на LoRA')
+Embedding_url_widget = factory.create_text('Embedding URL:', '', 'Введите прямую ссылку на Embedding')
+Extensions_url_widget = factory.create_text('Extensions URL:', '', 'Введите прямую ссылку на расширение')
+ADetailer_url_widget = factory.create_text('ADetailer URL:', '', 'Введите прямую ссылку на ADetailer')
+
+# Custom file URLs
+custom_file_urls_widget = factory.create_text(
+    'Custom URLs:',
     '',
     'Введите прямые ссылки, разделенные запятыми (http://..., http://...)'
 )
-custom_download_box = factory.create_vbox([custom_download_header, custom_download_widget])
+
+# Группируем виджеты
+custom_download_widgets = [
+    custom_download_header_popup,
+    Model_url_widget,
+    Vae_url_widget,
+    LoRA_url_widget,
+    Embedding_url_widget,
+    Extensions_url_widget,
+    ADetailer_url_widget,
+    custom_file_urls_widget
+]
+
+custom_download_box = factory.create_vbox([custom_download_header] + custom_download_widgets)
 
 # --- SAVE BUTTON ---
 """Create save button."""
@@ -173,6 +197,16 @@ save_button = factory.create_button(
     'success',
     icon='save'
 )
+
+# Объединяем все в один вертикальный контейнер
+WIDGET_LIST = factory.create_vbox([
+    model_box,
+    vae_box,
+    clip_box,
+    additional_box,
+    custom_download_box,
+    save_button
+], layouts=[{'width': '1080px'}]*6)
 
 # ================ DISPLAY / SETTINGS ================
 
@@ -201,16 +235,6 @@ vae_box = factory.create_vbox(vae_widgets, class_names=["container"])
 clip_box = factory.create_vbox(clip_widgets, class_names=["container"])
 additional_box = factory.create_vbox(additional_widgets, class_names=["container"])
 custom_download_box = factory.create_vbox(custom_download_widgets, class_names=["container", "container_cdl"])
-
-WIDGET_LIST = factory.create_vbox([
-    model_box,
-    vae_box,
-    clip_box,
-    additional_box,
-    custom_download_box,
-    save_button
-], layouts=[{'width': '1080px'}]*6)
-factory.display(WIDGET_LIST)
 
 # ================ CALLBACK FUNCTION ================
 # Callback functions for updating widgets
