@@ -108,7 +108,28 @@ controlnet_list = {
     ]
 }
 
-# Добавляем секцию CLIP_DATA
+MODEL_DATA = {
+    "Stable Diffusion XL Base": {
+        "url": "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_base_1.0.safetensors",
+        "filename": "sd_xl_base_1.0.safetensors"
+    },
+    "Stable Diffusion v1.5": {
+        "url": "https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned.safetensors",
+        "filename": "v1-5-pruned.safetensors"
+    },
+    # ... другие модели ...
+}
+
+VAE_DATA = {
+    "none": "Пропустить",
+    "ALL": "Загрузить все",
+    "1. SD-VAE": {
+        "url": "...",
+        "filename": "..."
+    },
+    # ... другие VAE ...
+}
+
 CLIP_DATA = {
     "1. CLIP-ViT-H-14": {
         "url": "https://huggingface.co/laion/CLIP-ViT-H-14-laion2B-s32B-b79K/resolve/main/model.safetensors",

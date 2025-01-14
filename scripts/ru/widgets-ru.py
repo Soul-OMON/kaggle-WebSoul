@@ -33,13 +33,14 @@ def read_model_data(file_path, data_type):
     data_key = f'{data_type.upper()}_DATA'
     data = local_vars.get(data_key, {})
     
-    # Если данные пустые, возвращаем базовый список
     if not data:
         return ['none']
-        
-    # Возвращаем список опций в зависимости от типа данных
-    if data_type in ['vae', 'clip', 'controlnet']:
-        return ['none', 'ALL'] + list(data.keys())
+    
+    # Разная логика для разных типов данных
+    if data_type == 'model':
+        return list(data.keys())  # Для моделей просто список ключей
+    elif data_type in ['vae', 'clip', 'controlnet']:
+        return ['none', 'ALL'] + [k for k in data.keys() if k not in ['none', 'ALL']]
     else:
         return list(data.keys())
 
@@ -58,7 +59,11 @@ HR = widgets.HTML('<hr>')
 """Create model selection widgets."""
 model_header = factory.create_header('Выбор Модели')
 model_options = read_model_data(f'{SCRIPTS}/_models-data.py', 'model')
-model_widget = factory.create_dropdown(model_options, 'Модель:', 'none')
+model_widget = factory.create_dropdown(
+    options=model_options,
+    description='Модель:',
+    value=model_options[0] if model_options else 'none'
+)
 model_num_widget = factory.create_text('Номер Модели:', '', 'Введите номера моделей для скачивания.')
 inpainting_model_widget = factory.create_checkbox('Inpainting Модели', False, class_names=['inpaint'])
 XL_models_widget = factory.create_checkbox('SDXL', False, class_names=['sdxl'])
@@ -69,7 +74,11 @@ switch_model_widget = factory.create_hbox([inpainting_model_widget, XL_models_wi
 """Create VAE selection widgets."""
 vae_header = factory.create_header('Выбор VAE')
 vae_options = read_model_data(f'{SCRIPTS}/_models-data.py', 'vae')
-vae_widget = factory.create_dropdown(vae_options, 'Vae:', 'none')
+vae_widget = factory.create_dropdown(
+    options=vae_options,
+    description='Vae:',
+    value='none'  # Для VAE всегда начинаем с 'none'
+)
 vae_num_widget = factory.create_text('Номер Vae:', '', 'Введите номера vae для скачивания.')
 
 # --- CLIP ---
@@ -78,7 +87,7 @@ clip_options = read_model_data(f'{SCRIPTS}/_models-data.py', 'clip')
 clip_widget = factory.create_dropdown(
     options=clip_options,
     description='CLIP:',
-    value='none'  # Устанавливаем значение по умолчанию
+    value='none'  # Для CLIP тоже начинаем с 'none'
 )
 clip_num_widget = factory.create_text(
     description='Номер CLIP:',
