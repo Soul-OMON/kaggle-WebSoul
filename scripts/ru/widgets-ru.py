@@ -26,21 +26,31 @@ widgets_js = JS / 'main-widgets.js'
 def read_model_data(file_path, data_type):
     """Read model data from file."""
     local_vars = {}
-
-    with open(file_path) as f:
-        exec(f.read(), {}, local_vars)
-
+    
+    print(f"Reading {data_type} data from {file_path}")  # Отладочный вывод
+    
+    with open(file_path, 'r', encoding='utf-8') as f:
+        content = f.read()
+        exec(content, {}, local_vars)
+    
+    # Проверяем, какие данные есть в файле
+    print(f"Available keys in local_vars: {list(local_vars.keys())}")  # Отладочный вывод
+    
     data_key = f'{data_type.upper()}_DATA'
     data = local_vars.get(data_key, {})
     
+    print(f"Data for {data_key}: {list(data.keys())}")  # Отладочный вывод
+    
     if not data:
+        print(f"No data found for {data_key}")  # Отладочный вывод
         return ['none']
     
-    # Разная логика для разных типов данных
     if data_type == 'model':
-        return list(data.keys())  # Для моделей просто список ключей
+        return list(data.keys())
     elif data_type in ['vae', 'clip', 'controlnet']:
-        return ['none', 'ALL'] + [k for k in data.keys() if k not in ['none', 'ALL']]
+        base_options = ['none', 'ALL']
+        additional_options = [k for k in data.keys() if k not in base_options]
+        return base_options + additional_options
     else:
         return list(data.keys())
 
@@ -59,6 +69,7 @@ HR = widgets.HTML('<hr>')
 """Create model selection widgets."""
 model_header = factory.create_header('Выбор Модели')
 model_options = read_model_data(f'{SCRIPTS}/_models-data.py', 'model')
+print(f"Model options: {model_options}")  # Отладочный вывод
 model_widget = factory.create_dropdown(
     options=model_options,
     description='Модель:',
@@ -74,10 +85,11 @@ switch_model_widget = factory.create_hbox([inpainting_model_widget, XL_models_wi
 """Create VAE selection widgets."""
 vae_header = factory.create_header('Выбор VAE')
 vae_options = read_model_data(f'{SCRIPTS}/_models-data.py', 'vae')
+print(f"VAE options: {vae_options}")  # Отладочный вывод
 vae_widget = factory.create_dropdown(
     options=vae_options,
     description='Vae:',
-    value='none'  # Для VAE всегда начинаем с 'none'
+    value='none'
 )
 vae_num_widget = factory.create_text('Номер Vae:', '', 'Введите номера vae для скачивания.')
 

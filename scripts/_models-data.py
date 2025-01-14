@@ -117,7 +117,11 @@ MODEL_DATA = {
         "url": "https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned.safetensors",
         "filename": "v1-5-pruned.safetensors"
     },
-    # ... другие модели ...
+    "Realistic Vision V5.1": {
+        "url": "...",
+        "filename": "..."
+    },
+    # ... остальные модели ...
 }
 
 VAE_DATA = {
@@ -127,7 +131,7 @@ VAE_DATA = {
         "url": "...",
         "filename": "..."
     },
-    # ... другие VAE ...
+    # ... остальные VAE ...
 }
 
 CLIP_DATA = {
