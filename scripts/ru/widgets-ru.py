@@ -92,6 +92,9 @@ latest_webui_widget = factory.create_checkbox('Обновить WebUI', True)
 latest_extensions_widget = factory.create_checkbox('Обновить Расширения', True)
 check_custom_nodes_deps_widget = factory.create_checkbox('Чекать зависимости Custom-Nodes', True)
 change_webui_widget = factory.create_dropdown(list(webui_selection.keys()), 'WebUI:', 'A1111')
+
+# Получаем опции для ControlNet
+controlnet_options = read_model_data(f'{SCRIPTS}/_models-data.py', 'cnet')
 controlnet_widget = factory.create_dropdown(controlnet_options, 'ControlNet:', 'none')
 controlnet_num_widget = factory.create_text('Номер ControlNet:', '', 'Введите номера моделей ControlNet для скачивания.')
 
