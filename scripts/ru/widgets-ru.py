@@ -54,10 +54,8 @@ factory = WidgetFactory()
 HR = widgets.HTML('<hr>')
 
 # --- MODEL ---
-"""Create model selection widgets."""
 model_header = factory.create_header('Выбор Модели')
 model_options = read_model_data(f'{SCRIPTS}/_models-data.py', 'model')
-print(f"Model options: {model_options}")  # Отладочный вывод
 model_widget = factory.create_dropdown(
     options=model_options,
     description='Модель:',
@@ -66,18 +64,15 @@ model_widget = factory.create_dropdown(
 model_num_widget = factory.create_text('Номер Модели:', '', 'Введите номера моделей для скачивания.')
 inpainting_model_widget = factory.create_checkbox('Inpainting Модели', False, class_names=['inpaint'])
 XL_models_widget = factory.create_checkbox('SDXL', False, class_names=['sdxl'])
-
 switch_model_widget = factory.create_hbox([inpainting_model_widget, XL_models_widget])
 
 # --- VAE ---
-"""Create VAE selection widgets."""
 vae_header = factory.create_header('Выбор VAE')
 vae_options = read_model_data(f'{SCRIPTS}/_models-data.py', 'vae')
-print(f"VAE options: {vae_options}")  # Отладочный вывод
 vae_widget = factory.create_dropdown(
     options=vae_options,
     description='Vae:',
-    value=vae_options[0] if vae_options else 'none'
+    value='none'
 )
 vae_num_widget = factory.create_text('Номер Vae:', '', 'Введите номера vae для скачивания.')
 
@@ -87,111 +82,49 @@ clip_options = read_model_data(f'{SCRIPTS}/_models-data.py', 'clip')
 clip_widget = factory.create_dropdown(
     options=clip_options,
     description='CLIP:',
-    value='none'  # Для CLIP тоже начинаем с 'none'
+    value='none'
 )
-clip_num_widget = factory.create_text(
-    description='Номер CLIP:',
-    value='',
-    placeholder='Введите номера CLIP для скачивания.'
-)
+clip_num_widget = factory.create_text('Номер CLIP:', '', 'Введите номера CLIP для скачивания.')
 
 # --- ADDITIONAL ---
-"""Create additional configuration widgets."""
 additional_header = factory.create_header('Дополнительно')
 latest_webui_widget = factory.create_checkbox('Обновить WebUI', True)
 latest_extensions_widget = factory.create_checkbox('Обновить Расширения', True)
 check_custom_nodes_deps_widget = factory.create_checkbox('Чекать зависимости Custom-Nodes', True)
 change_webui_widget = factory.create_dropdown(list(webui_selection.keys()), 'WebUI:', 'A1111')
-detailed_download_widget = factory.create_dropdown(['off', 'on'], 'Подробная Загрузка:', 'off', layout={'width': 'auto'})
-choose_changes_widget = factory.create_hbox(
-    [
-        latest_webui_widget,
-        latest_extensions_widget,
-        check_custom_nodes_deps_widget,   # Only ComfyUI
-        change_webui_widget,
-        detailed_download_widget
-    ],
-    layout={'justify_content': 'space-between'}
-)
-
-controlnet_options = read_model_data(f'{SCRIPTS}/_models-data.py', 'cnet')
 controlnet_widget = factory.create_dropdown(controlnet_options, 'ControlNet:', 'none')
 controlnet_num_widget = factory.create_text('Номер ControlNet:', '', 'Введите номера моделей ControlNet для скачивания.')
-commit_hash_widget = factory.create_text('Commit Hash:', '', 'Переключение между ветвями или коммитами.')
-civitai_token_widget = factory.create_text('Токен CivitAI:', '', 'Введите свой API-токен CivitAi.')
-huggingface_token_widget = factory.create_text('Токен HuggingFace:')
-
-ngrok_token_widget = factory.create_text('Токен Ngrok:')
-ngrok_button = factory.create_html('<a href="https://dashboard.ngrok.com/get-started/your-authtoken" target="_blank">Получить Ngrok Токен</a>', class_names=["button", "button_zrok"])
-ngrok_widget = factory.create_hbox([ngrok_token_widget, ngrok_button])
-
-zrok_token_widget = factory.create_text('Токен Zrok:')
-zrok_button = factory.create_html('<a href="https://colab.research.google.com/drive/1d2sjWDJi_GYBUavrHSuQyHTDuLy36WpU" target="_blank">Зарегать Zrok Токен</a>', class_names=["button", "button_zrok"])
-zrok_widget = factory.create_hbox([zrok_token_widget, zrok_button])
-
-commandline_arguments_widget = factory.create_text('Аргументы:', webui_selection['A1111'])
-
-additional_widget_list = [
-    additional_header,
-    choose_changes_widget,
-    HR,
-    controlnet_widget, controlnet_num_widget,
-    commit_hash_widget,
-    civitai_token_widget, huggingface_token_widget, zrok_widget, ngrok_widget,
-    HR,
-    commandline_arguments_widget
-]
-# if ENV_NAME == "Google Colab": # remove ngrok from colab
-#     additional_widget_list.remove(ngrok_widget)
 
 # --- CUSTOM DOWNLOAD ---
-"""Create custom download widgets."""
 custom_download_header = factory.create_header('Пользовательская Загрузка')
 custom_download_header_popup = factory.create_header('🔗 Пользовательские ссылки')
 
-# URL widgets
 Model_url_widget = factory.create_text('Model URL:', '', 'Введите прямую ссылку на модель')
 Vae_url_widget = factory.create_text('VAE URL:', '', 'Введите прямую ссылку на VAE')
 LoRA_url_widget = factory.create_text('LoRA URL:', '', 'Введите прямую ссылку на LoRA')
 Embedding_url_widget = factory.create_text('Embedding URL:', '', 'Введите прямую ссылку на Embedding')
 Extensions_url_widget = factory.create_text('Extensions URL:', '', 'Введите прямую ссылку на расширение')
 ADetailer_url_widget = factory.create_text('ADetailer URL:', '', 'Введите прямую ссылку на ADetailer')
-
-# Custom file URLs
 custom_file_urls_widget = factory.create_text(
     'Custom URLs:',
     '',
     'Введите прямые ссылки, разделенные запятыми (http://..., http://...)'
 )
 
-# Группируем виджеты
-custom_download_widgets = [
-    custom_download_header_popup,
-    Model_url_widget,
-    Vae_url_widget,
-    LoRA_url_widget,
-    Embedding_url_widget,
-    Extensions_url_widget,
-    ADetailer_url_widget,
-    custom_file_urls_widget
-]
-
-custom_download_box = factory.create_vbox([custom_download_header] + custom_download_widgets)
-
 # --- SAVE BUTTON ---
-"""Create save button."""
-save_button = factory.create_button(
-    'Сохранить',
-    'success',
-    icon='save'
-)
+save_button = factory.create_button('Сохранить', 'success', icon='save')
 
-# Display sections
-model_widgets = [model_header, model_widget, model_num_widget, switch_model_widget]
-vae_widgets = [vae_header, vae_widget, vae_num_widget]
-clip_widgets = [clip_header, clip_widget, clip_num_widget]
-additional_widgets = additional_widget_list
-custom_download_widgets = [
+# Создаем контейнеры для каждой секции
+model_box = factory.create_vbox([model_header, model_widget, model_num_widget, switch_model_widget])
+vae_box = factory.create_vbox([vae_header, vae_widget, vae_num_widget])
+clip_box = factory.create_vbox([clip_header, clip_widget, clip_num_widget])
+additional_box = factory.create_vbox([
+    additional_header,
+    factory.create_hbox([latest_webui_widget, latest_extensions_widget, check_custom_nodes_deps_widget, change_webui_widget]),
+    controlnet_widget,
+    controlnet_num_widget
+])
+custom_download_box = factory.create_vbox([
     custom_download_header_popup,
     Model_url_widget,
     Vae_url_widget,
@@ -200,14 +133,7 @@ custom_download_widgets = [
     Extensions_url_widget,
     ADetailer_url_widget,
     custom_file_urls_widget
-]
-
-# Create Boxes
-model_box = factory.create_vbox(model_widgets, class_names=["container"])
-vae_box = factory.create_vbox(vae_widgets, class_names=["container"])
-clip_box = factory.create_vbox(clip_widgets, class_names=["container"])
-additional_box = factory.create_vbox(additional_widgets, class_names=["container"])
-custom_download_box = factory.create_vbox(custom_download_widgets, class_names=["container", "container_cdl"])
+])
 
 # Объединяем все в один вертикальный контейнер
 WIDGET_LIST = factory.create_vbox([
