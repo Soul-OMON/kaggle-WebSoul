@@ -24,25 +24,24 @@ widgets_js = JS / 'main-widgets.js'
 
 # ====================== WIDGETS =====================
 def read_model_data(file_path, data_type):
-    """
-    Reads model, VAE, or ControlNet data from the specified file.
-
-    The function loads data from a Python script and returns the corresponding list of model names based on the specified data type.
-    """
+    """Read model data from file."""
     local_vars = {}
-    
+
     with open(file_path) as f:
         exec(f.read(), {}, local_vars)
+
+    data_key = f'{data_type.upper()}_DATA'
+    data = local_vars.get(data_key, {})
     
-    if data_type == "model":
-        model_names = list(local_vars['model_list'].keys())   # Return model names
-        return ['none'] + model_names
-    elif data_type == "vae":
-        vae_names = list(local_vars['vae_list'].keys())    # Return the VAE names
-        return ['none', 'ALL'] + vae_names
-    elif data_type == "cnet":
-        cnet_names = list(local_vars['controlnet_list'].keys())   # Return ControlNet names
-        return ['none', 'ALL'] + cnet_names
+    # Если данные пустые, возвращаем базовый список
+    if not data:
+        return ['none']
+        
+    # Возвращаем список опций в зависимости от типа данных
+    if data_type in ['vae', 'clip', 'controlnet']:
+        return ['none', 'ALL'] + list(data.keys())
+    else:
+        return list(data.keys())
 
 webui_selection = {
     'A1111': "--xformers --no-half-vae",
@@ -76,8 +75,16 @@ vae_num_widget = factory.create_text('Номер Vae:', '', 'Введите но
 # --- CLIP ---
 clip_header = factory.create_header('Выбор CLIP')
 clip_options = read_model_data(f'{SCRIPTS}/_models-data.py', 'clip')
-clip_widget = factory.create_dropdown(clip_options, 'CLIP:', 'none')
-clip_num_widget = factory.create_text('Номер CLIP:', '', 'Введите номера CLIP для скачивания.')
+clip_widget = factory.create_dropdown(
+    options=clip_options,
+    description='CLIP:',
+    value='none'  # Устанавливаем значение по умолчанию
+)
+clip_num_widget = factory.create_text(
+    description='Номер CLIP:',
+    value='',
+    placeholder='Введите номера CLIP для скачивания.'
+)
 
 # --- ADDITIONAL ---
 """Create additional configuration widgets."""
