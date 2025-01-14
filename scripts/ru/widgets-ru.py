@@ -11,7 +11,7 @@ import os
 
 # Constants
 HOME = Path.home()
-SCR_PATH = Path(HOME / 'ANXETY')
+SCR_PATH = HOME / 'SOUL'
 SETTINGS_PATH = SCR_PATH / 'settings.json'
 ENV_NAME = read_json(SETTINGS_PATH, 'ENVIRONMENT.env_name')
 
@@ -24,25 +24,13 @@ widgets_js = JS / 'main-widgets.js'
 
 # ====================== WIDGETS =====================
 def read_model_data(file_path, data_type):
-    """
-    Reads model, VAE, or ControlNet data from the specified file.
-
-    The function loads data from a Python script and returns the corresponding list of model names based on the specified data type.
-    """
+    """Read model data from file."""
     local_vars = {}
-    
+
     with open(file_path) as f:
         exec(f.read(), {}, local_vars)
-    
-    if data_type == "model":
-        model_names = list(local_vars['model_list'].keys())   # Return model names
-        return ['none'] + model_names
-    elif data_type == "vae":
-        vae_names = list(local_vars['vae_list'].keys())    # Return the VAE names
-        return ['none', 'ALL'] + vae_names
-    elif data_type == "cnet":
-        cnet_names = list(local_vars['controlnet_list'].keys())   # Return ControlNet names
-        return ['none', 'ALL'] + cnet_names
+
+    return local_vars.get(f'{data_type.upper()}_DATA', {})
 
 webui_selection = {
     'A1111': "--xformers --no-half-vae",
