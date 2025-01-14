@@ -1,6 +1,6 @@
 <div align="center">
-<img width="1080px" height="auto" src="https://raw.githubusercontent.com/anxety-solo/sdAIgen/dev/.Docs/Imgs/sample.png"/></br>
-<h1>~ ANXETY | Stable Diffusion WebUI | NoteBook V2 ~</h1>
+<img width="1080px" height="auto" src="https://raw.githubusercontent.com/Soul-OMON/kaggle-WebSoul/dev/.Docs/Imgs/sample.png"/></br>
+<h1>~ SOUL | Stable Diffusion WebUI | NoteBook V2 ~</h1>
 	
 [English](README.md) | Русский
  
@@ -10,7 +10,7 @@
     <a href="https://discord.gg/eemJdDusvH">
         <img src=".Docs/SVG/ru/discord-ru.svg" width="800" height="130" alt="discord">
     </a>
-    <a href="https://colab.research.google.com/github/anxety-solo/sdAIgen/blob/main/notebook/ANXETY_sdAIgen_RU.ipynb">
+    <a href="https://colab.research.google.com/github/Soul-OMON/kaggle-WebSoul/blob/main/notebook/SOUL_flux_RU.ipynb">
         <img src=".Docs/SVG/ru/colab-ru.svg" width="800" height="160" alt="colab">
     </a>
     <a href="https://www.kaggle.com/code/anxetysolo/sdaigen-ru-ipynb">
