@@ -12,7 +12,7 @@ import os
 
 # Constants
 HOME = Path.home()
-SCR_PATH = Path(HOME / 'ANXETY')
+SCR_PATH = Path(HOME / 'SOUL')
 SETTINGS_PATH = SCR_PATH / 'settings.json'
 
 UI = read_json(SETTINGS_PATH, 'WEBUI.current')

@@ -14,7 +14,7 @@ UI = 'A1111'
 
 HOME = Path.home()
 WEBUI = HOME / UI
-SCR_PATH = HOME / 'ANXETY'
+SCR_PATH = HOME / 'SOUL'
 SETTINGS_PATH = SCR_PATH / 'settings.json'
 
 REPO_URL = f"https://huggingface.co/NagisaNao/ANXETY/resolve/main/{UI}.zip"

@@ -21,7 +21,7 @@ import os
 
 # Constants
 HOME = Path.home()
-SCR_PATH = Path(HOME / 'ANXETY')
+SCR_PATH = Path(HOME / 'SOUL')
 SETTINGS_PATH = SCR_PATH / 'settings.json'
 LANG = read_json(SETTINGS_PATH, 'ENVIRONMENT.lang')
 ENV_NAME = read_json(SETTINGS_PATH, 'ENVIRONMENT.env_name')
