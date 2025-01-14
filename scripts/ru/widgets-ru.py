@@ -27,10 +27,22 @@ def read_model_data(file_path, data_type):
     """Read model data from file."""
     local_vars = {}
 
-    with open(file_path) as f:
-        exec(f.read(), {}, local_vars)
-
-    return local_vars.get(f'{data_type.upper()}_DATA', {})
+    try:
+        with open(file_path) as f:
+            exec(f.read(), {}, local_vars)
+        
+        data = local_vars.get(f'{data_type.upper()}_DATA', {})
+        
+        # Для VAE добавляем специальные опции
+        if data_type == 'vae':
+            if isinstance(data, dict):
+                return ['none', 'ALL'] + list(data.keys())
+            return ['none', 'ALL'] + list(data)
+            
+        return data
+    except Exception as e:
+        print(f"Error reading model data: {e}")
+        return ['none']  # Возвращаем минимальный список с 'none'
 
 webui_selection = {
     'A1111': "--xformers --no-half-vae",
@@ -78,11 +90,25 @@ category_widget.observe(on_category_change, names='value')
 """Create VAE selection widgets."""
 vae_header = factory.create_header('Выбор VAE')
 vae_options = read_model_data(f'{SCRIPTS}/_models-data.py', 'vae')
+
+# Добавим отладочный вывод
+print("Available VAE options:", vae_options)
+
+# Создаем список опций с гарантированным значением 'none'
+if isinstance(vae_options, dict):
+    vae_list = list(vae_options.keys())
+else:
+    vae_list = list(vae_options)
+
+if 'none' not in vae_list:
+    vae_list.insert(0, 'none')
+
 vae_widget = factory.create_dropdown(
-    options=vae_options,
+    options=vae_list,
     description='Vae:',
-    value=vae_options[0] if vae_options else 'none'
+    value=vae_list[0]  # Используем первый элемент списка как значение по умолчанию
 )
+
 vae_num_widget = factory.create_text(
     description='Номер Vae:', 
     value='', 
