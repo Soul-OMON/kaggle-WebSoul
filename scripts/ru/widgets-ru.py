@@ -186,21 +186,6 @@ save_button = factory.create_button(
     icon='save'
 )
 
-# Объединяем все в один вертикальный контейнер
-WIDGET_LIST = factory.create_vbox([
-    model_box,
-    vae_box,
-    clip_box,
-    additional_box,
-    custom_download_box,
-    save_button
-], layouts=[{'width': '1080px'}]*6)
-
-# ================ DISPLAY / SETTINGS ================
-
-factory.load_css(widgets_css)   # load CSS (widgets)
-factory.load_js(widgets_js)     # load JS (widgets)
-
 # Display sections
 model_widgets = [model_header, model_widget, model_num_widget, switch_model_widget]
 vae_widgets = [vae_header, vae_widget, vae_num_widget]
@@ -224,7 +209,21 @@ clip_box = factory.create_vbox(clip_widgets, class_names=["container"])
 additional_box = factory.create_vbox(additional_widgets, class_names=["container"])
 custom_download_box = factory.create_vbox(custom_download_widgets, class_names=["container", "container_cdl"])
 
-# ================ CALLBACK FUNCTION ================
+# Объединяем все в один вертикальный контейнер
+WIDGET_LIST = factory.create_vbox([
+    model_box,
+    vae_box,
+    clip_box,
+    additional_box,
+    custom_download_box,
+    save_button
+], layouts=[{'width': '1080px'}]*6)
+
+# ================ DISPLAY / SETTINGS ================
+
+factory.load_css(widgets_css)   # load CSS (widgets)
+factory.load_js(widgets_js)     # load JS (widgets)
+
 # Callback functions for updating widgets
 def update_change_webui(change, widget):
     selected_webui = change['new']
