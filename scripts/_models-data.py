@@ -108,7 +108,10 @@ controlnet_list = {
     ]
 }
 
-clip_list = {
+# Добавляем секцию CLIP_DATA
+CLIP_DATA = {
+    "none": "Пропустить",
+    "ALL": "Загрузить все",
     "1. CLIP-ViT-H-14": {
         "url": "https://huggingface.co/laion/CLIP-ViT-H-14-laion2B-s32B-b79K/resolve/main/model.safetensors",
         "filename": "clip-vit-h-14.safetensors"
@@ -117,5 +120,4 @@ clip_list = {
         "url": "https://huggingface.co/laion/CLIP-ViT-bigG-14-laion2B-39B-b160k/resolve/main/model.safetensors",
         "filename": "clip-vit-bigg-14.safetensors"
     }
-    # Добавьте другие CLIP модели по необходимости
 }

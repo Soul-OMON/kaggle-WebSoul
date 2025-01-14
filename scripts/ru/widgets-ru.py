@@ -59,7 +59,7 @@ HR = widgets.HTML('<hr>')
 """Create model selection widgets."""
 model_header = factory.create_header('Выбор Модели')
 model_options = read_model_data(f'{SCRIPTS}/_models-data.py', 'model')
-model_widget = factory.create_dropdown(model_options, 'Модель:', '4. Counterfeit [Anime] [V3] + INP')
+model_widget = factory.create_dropdown(model_options, 'Модель:', 'none')
 model_num_widget = factory.create_text('Номер Модели:', '', 'Введите номера моделей для скачивания.')
 inpainting_model_widget = factory.create_checkbox('Inpainting Модели', False, class_names=['inpaint'])
 XL_models_widget = factory.create_checkbox('SDXL', False, class_names=['sdxl'])
@@ -70,8 +70,14 @@ switch_model_widget = factory.create_hbox([inpainting_model_widget, XL_models_wi
 """Create VAE selection widgets."""
 vae_header = factory.create_header('Выбор VAE')
 vae_options = read_model_data(f'{SCRIPTS}/_models-data.py', 'vae')
-vae_widget = factory.create_dropdown(vae_options, 'Vae:', '3. Blessed2.vae')
+vae_widget = factory.create_dropdown(vae_options, 'Vae:', 'none')
 vae_num_widget = factory.create_text('Номер Vae:', '', 'Введите номера vae для скачивания.')
+
+# --- CLIP ---
+clip_header = factory.create_header('Выбор CLIP')
+clip_options = read_model_data(f'{SCRIPTS}/_models-data.py', 'clip')
+clip_widget = factory.create_dropdown(clip_options, 'CLIP:', 'none')
+clip_num_widget = factory.create_text('Номер CLIP:', '', 'Введите номера CLIP для скачивания.')
 
 # --- ADDITIONAL ---
 """Create additional configuration widgets."""
@@ -79,7 +85,7 @@ additional_header = factory.create_header('Дополнительно')
 latest_webui_widget = factory.create_checkbox('Обновить WebUI', True)
 latest_extensions_widget = factory.create_checkbox('Обновить Расширения', True)
 check_custom_nodes_deps_widget = factory.create_checkbox('Чекать зависимости Custom-Nodes', True)
-change_webui_widget = factory.create_dropdown(list(webui_selection.keys()), 'WebUI:', 'A1111', layout={'width': 'auto'})
+change_webui_widget = factory.create_dropdown(list(webui_selection.keys()), 'WebUI:', 'A1111')
 detailed_download_widget = factory.create_dropdown(['off', 'on'], 'Подробная Загрузка:', 'off', layout={'width': 'auto'})
 choose_changes_widget = factory.create_hbox(
     [
@@ -161,6 +167,7 @@ factory.load_js(widgets_js)     # load JS (widgets)
 # Display sections
 model_widgets = [model_header, model_widget, model_num_widget, switch_model_widget]
 vae_widgets = [vae_header, vae_widget, vae_num_widget]
+clip_widgets = [clip_header, clip_widget, clip_num_widget]
 additional_widgets = additional_widget_list
 custom_download_widgets = [
     custom_download_header_popup,
@@ -176,11 +183,17 @@ custom_download_widgets = [
 # Create Boxes
 model_box = factory.create_vbox(model_widgets, class_names=["container"])
 vae_box = factory.create_vbox(vae_widgets, class_names=["container"])
+clip_box = factory.create_vbox(clip_widgets, class_names=["container"])
 additional_box = factory.create_vbox(additional_widgets, class_names=["container"])
 custom_download_box = factory.create_vbox(custom_download_widgets, class_names=["container", "container_cdl"])
 
-WIDGET_LIST = factory.create_vbox([model_box, vae_box, additional_box, custom_download_box, save_button],
-                                  layouts=[{'width': '1080px'}]*4)    # style for the first four elements
+WIDGET_LIST = factory.create_vbox([
+    model_box,
+    vae_box,
+    clip_box,
+    additional_box,
+    custom_download_box
+], layouts=[{'width': '1080px'}]*4)
 factory.display(WIDGET_LIST)
 
 # ================ CALLBACK FUNCTION ================
