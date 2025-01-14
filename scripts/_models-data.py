@@ -107,3 +107,15 @@ controlnet_list = {
         {"url": "https://huggingface.co/ckpt/ControlNet-v1-1/raw/main/control_v11f1e_sd15_tile_fp16.yaml"}
     ]
 }
+
+clip_list = {
+    "1. CLIP-ViT-H-14": {
+        "url": "https://huggingface.co/laion/CLIP-ViT-H-14-laion2B-s32B-b79K/resolve/main/model.safetensors",
+        "filename": "clip-vit-h-14.safetensors"
+    },
+    "2. CLIP-ViT-bigG-14": {
+        "url": "https://huggingface.co/laion/CLIP-ViT-bigG-14-laion2B-39B-b160k/resolve/main/model.safetensors",
+        "filename": "clip-vit-bigg-14.safetensors"
+    }
+    # Добавьте другие CLIP модели по необходимости
+}
