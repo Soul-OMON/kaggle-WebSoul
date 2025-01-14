@@ -27,64 +27,51 @@ def read_model_data(file_path, data_type):
     """Read model data from file."""
     local_vars = {}
 
-    try:
-        with open(file_path) as f:
-            exec(f.read(), {}, local_vars)
-        
-        data = local_vars.get(f'{data_type.upper()}_DATA', {})
-        
-        # Для VAE добавляем специальные опции
-        if data_type == 'vae':
-            if isinstance(data, dict):
-                return ['none', 'ALL'] + list(data.keys())
-            return ['none', 'ALL'] + list(data)
-            
-        return data
-    except Exception as e:
-        print(f"Error reading model data: {e}")
-        return ['none']  # Возвращаем минимальный список с 'none'
+    with open(file_path) as f:
+        exec(f.read(), {}, local_vars)
 
-webui_selection = {
-    'A1111': "--xformers --no-half-vae",
-    'ReForge': "--xformers --cuda-stream --pin-shared-memory",
-    'ComfyUI': "--dont-print-server --preview-method auto --use-pytorch-cross-attention",
-    'Forge': "--opt-sdp-attention --cuda-stream --cuda-malloc --pin-shared-memory"  # Remove: --disable-xformers 
-}
+    return local_vars.get(f'{data_type.upper()}_DATA', {})
 
-# Initialize the WidgetFactory
+# Создание фабрики виджетов
 factory = WidgetFactory()
-HR = widgets.HTML('<hr>')
 
-# Создание категорий моделей
-model_categories = {
-    'Общие': ['Stable Diffusion XL Base', 'Stable Diffusion v1.5'],
-    'Аниме': ['AnythingV5', 'CounterfeitV30'],
-    'Реализм': ['Realistic Vision V5.1', 'PhotonV1'],
-    'Стилизация': ['Deliberate v3', 'RevAnimated v122']
-}
-
-# Создание виджета выбора категории
-categories = list(model_categories.keys())
-category_widget = factory.create_dropdown(
-    options=categories,
-    description='Категория модели:',
-    value=categories[0]
-)
-
-# Создание виджета выбора модели
-models = model_categories['Общие']  # Начальные модели из категории "Общие"
+# Создание виджетов для моделей
+model_header = factory.create_header('Выбор Модели')
+model_options = read_model_data(f'{SCRIPTS}/_models-data.py', 'model')
 model_widget = factory.create_dropdown(
-    options=models,
+    options=list(model_options.keys()),
     description='Модель:',
-    value=models[0]
+    value=list(model_options.keys())[0]
+)
+model_num_widget = factory.create_text(
+    description='Номер Модели:',
+    value='',
+    placeholder='Введите номера моделей для скачивания.'
 )
 
-# Обработчик изменения категории
-def on_category_change(change):
-    model_widget.options = model_categories[change['new']]
-    model_widget.value = model_categories[change['new']][0]
+# Создание виджетов для VAE
+vae_header = factory.create_header('Выбор VAE')
+vae_options = read_model_data(f'{SCRIPTS}/_models-data.py', 'vae')
+vae_widget = factory.create_dropdown(
+    options=list(vae_options.keys()),
+    description='VAE:',
+    value=list(vae_options.keys())[0]
+)
+vae_num_widget = factory.create_text(
+    description='Номер VAE:',
+    value='',
+    placeholder='Введите номера VAE для скачивания.'
+)
 
-category_widget.observe(on_category_change, names='value')
+# Группировка виджетов
+model_widgets = widgets.VBox([
+    model_header,
+    model_widget,
+    model_num_widget,
+    vae_header,
+    vae_widget,
+    vae_num_widget
+])
 
 # --- VAE ---
 """Create VAE selection widgets."""
