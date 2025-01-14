@@ -24,15 +24,15 @@ def display_info(env, scr_folder):
     <div id="snow-container">
       <div id="text-container">
         <span>❄️</span>
-        <span>A</span>
-        <span>N</span>
-        <span>X</span>
-        <span>E</span>
-        <span>T</span>
-        <span>Y</span>
-        <span>&nbsp;</span>
         <span>S</span>
-        <span>D</span>
+        <span>O</span>
+        <span>U</span>
+        <span>L</span>
+        <span>&nbsp;</span>
+        <span>F</span>
+        <span>l</span>
+        <span>u</span>
+        <span>x</span>
         <span>-</span>
         <span>W</span>
         <span>E</span>
