@@ -55,16 +55,57 @@ webui_selection = {
 factory = WidgetFactory()
 HR = widgets.HTML('<hr>')
 
-# --- MODEL ---
-"""Create model selection widgets."""
-model_header = factory.create_header('Выбор Модели')
-model_options = read_model_data(f'{SCRIPTS}/_models-data.py', 'model')
-model_widget = factory.create_dropdown(model_options, 'Модель:', '4. Counterfeit [Anime] [V3] + INP')
-model_num_widget = factory.create_text('Номер Модели:', '', 'Введите номера моделей для скачивания.')
-inpainting_model_widget = factory.create_checkbox('Inpainting Модели', False, class_names=['inpaint'])
-XL_models_widget = factory.create_checkbox('SDXL', False, class_names=['sdxl'])
+# Определение категорий моделей
+model_categories = {
+    "Общие": [
+        "Stable Diffusion XL Base",
+        "Stable Diffusion v1.5",
+        "Realistic Vision V5.1",
+        "Photon V1",
+        "DreamShaper XL",
+    ],
+    "Аниме": [
+        "AnythingV5",
+        "CounterfeitV30",
+        "AbyssOrangeMix3",
+        "DreamShaper v8",
+        "MeinaPastel v7",
+    ],
+    "Реализм": [
+        "RealisticVisionV5.1",
+        "epiCRealism",
+        "PhotonV1",
+        "SDXL Realism",
+        "ICantBelieveItsNotPhotography",
+    ],
+    "Стилизация": [
+        "Deliberate v3",
+        "OpenjourneysV4",
+        "DreamlikePhotoreal v2",
+        "RevAnimated v122",
+        "PortraitPlus",
+    ]
+}
 
-switch_model_widget = factory.create_hbox([inpainting_model_widget, XL_models_widget])
+# Создание виджета выбора категории
+category_widget = factory.create_dropdown(
+    'Категория модели:',
+    list(model_categories.keys()),
+    'Выберите категорию модели'
+)
+
+# Создание виджета выбора модели
+model_widget = factory.create_dropdown(
+    'Модель:',
+    model_categories['Общие'],  # Начальное значение
+    'Выберите модель для генерации'
+)
+
+# Функция обновления списка моделей при смене категории
+def update_models(change):
+    model_widget.options = model_categories[change['new']]
+    
+category_widget.observe(update_models, names='value')
 
 # --- VAE ---
 """Create VAE selection widgets."""
@@ -146,7 +187,7 @@ factory.load_css(widgets_css)   # load CSS (widgets)
 factory.load_js(widgets_js)     # load JS (widgets)
 
 # Display sections
-model_widgets = [model_header, model_widget, model_num_widget, switch_model_widget]
+model_widgets = [category_widget, model_widget]
 vae_widgets = [vae_header, vae_widget, vae_num_widget]
 additional_widgets = additional_widget_list
 custom_download_widgets = [

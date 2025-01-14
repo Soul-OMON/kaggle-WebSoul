@@ -586,3 +586,31 @@ if extension_repo:
 
 ## List Models and stuff
 get_ipython().run_line_magic('run', f'{SCRIPTS}/download-result.py')
+
+def download_model(model_name):
+    """Загрузка выбранной модели через Kaggle API"""
+    if model_name in MODEL_DATA:
+        model_info = MODEL_DATA[model_name]
+        kaggle_url = model_info["url"]
+        filename = model_info["filename"]
+        
+        print(f"Загрузка модели {model_name} из Kaggle...")
+        try:
+            # Извлекаем username и notebook-slug из URL
+            path_parts = urlparse(kaggle_url).path.split('/')
+            if 'code' in path_parts:
+                username = path_parts[path_parts.index('code') + 1]
+                notebook_slug = path_parts[path_parts.index('code') + 2]
+                
+                # Используем Kaggle API для загрузки из notebook
+                api.kernel_pull(
+                    f"{username}/{notebook_slug}",
+                    path=models_dir
+                )
+                print(f"✅ Модель {model_name} успешно загружена!")
+            else:
+                print(f"❌ Ошибка: Неверный формат URL для Kaggle: {kaggle_url}")
+        except Exception as e:
+            print(f"❌ Ошибка при загрузке модели {model_name}: {str(e)}")
+    else:
+        print(f"❌ Ошибка: модель {model_name} не найдена в базе данных")
