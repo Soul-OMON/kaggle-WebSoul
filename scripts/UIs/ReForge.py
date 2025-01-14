@@ -14,7 +14,7 @@ UI = 'ReForge'
 
 HOME = Path.home()
 WEBUI = HOME / UI
-SCR_PATH = HOME / 'ANXETY'
+SCR_PATH = HOME / 'SOUL'
 SETTINGS_PATH = SCR_PATH / 'settings.json'
 
 REPO_URL = f"https://huggingface.co/NagisaNao/ANXETY/resolve/main/{UI}.zip"
@@ -47,7 +47,7 @@ async def download_files(file_list):
 
 async def download_configuration():
     ## FILES
-    url_af = f'https://raw.githubusercontent.com/anxety-solo/sdAIgen/refs/heads/{BRANCH}/__configs__/'
+    url_af = f'https://raw.githubusercontent.com/Soul-OMON/kaggle-WebSoul/refs/heads/{BRANCH}/__configs__/'
     configs = [
         f'{url_af}/{UI}/config.json',
         f'{url_af}/{UI}/ui-config.json',
