@@ -43,57 +43,36 @@ webui_selection = {
 factory = WidgetFactory()
 HR = widgets.HTML('<hr>')
 
-# Определение категорий моделей
+# Создание категорий моделей
 model_categories = {
-    "Общие": [
-        "Stable Diffusion XL Base",
-        "Stable Diffusion v1.5",
-        "Realistic Vision V5.1",
-        "Photon V1",
-        "DreamShaper XL",
-    ],
-    "Аниме": [
-        "AnythingV5",
-        "CounterfeitV30",
-        "AbyssOrangeMix3",
-        "DreamShaper v8",
-        "MeinaPastel v7",
-    ],
-    "Реализм": [
-        "RealisticVisionV5.1",
-        "epiCRealism",
-        "PhotonV1",
-        "SDXL Realism",
-        "ICantBelieveItsNotPhotography",
-    ],
-    "Стилизация": [
-        "Deliberate v3",
-        "OpenjourneysV4",
-        "DreamlikePhotoreal v2",
-        "RevAnimated v122",
-        "PortraitPlus",
-    ]
+    'Общие': ['Stable Diffusion XL Base', 'Stable Diffusion v1.5'],
+    'Аниме': ['AnythingV5', 'CounterfeitV30'],
+    'Реализм': ['Realistic Vision V5.1', 'PhotonV1'],
+    'Стилизация': ['Deliberate v3', 'RevAnimated v122']
 }
 
 # Создание виджета выбора категории
+categories = list(model_categories.keys())
 category_widget = factory.create_dropdown(
-    options=list(model_categories.keys()),
+    options=categories,
     description='Категория модели:',
-    value=list(model_categories.keys())[0]  # первая категория как значение по умолчанию
+    value=categories[0]
 )
 
 # Создание виджета выбора модели
+models = model_categories['Общие']  # Начальные модели из категории "Общие"
 model_widget = factory.create_dropdown(
-    'Модель:',
-    model_categories['Общие'],  # Начальное значение
-    'Выберите модель для генерации'
+    options=models,
+    description='Модель:',
+    value=models[0]
 )
 
-# Функция обновления списка моделей при смене категории
-def update_models(change):
+# Обработчик изменения категории
+def on_category_change(change):
     model_widget.options = model_categories[change['new']]
-    
-category_widget.observe(update_models, names='value')
+    model_widget.value = model_categories[change['new']][0]
+
+category_widget.observe(on_category_change, names='value')
 
 # --- VAE ---
 """Create VAE selection widgets."""
