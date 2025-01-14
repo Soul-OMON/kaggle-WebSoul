@@ -77,9 +77,9 @@ model_categories = {
 
 # Создание виджета выбора категории
 category_widget = factory.create_dropdown(
-    'Категория модели:',
-    list(model_categories.keys()),
-    'Выберите категорию модели'
+    options=list(model_categories.keys()),
+    description='Категория модели:',
+    value=list(model_categories.keys())[0]  # первая категория как значение по умолчанию
 )
 
 # Создание виджета выбора модели
