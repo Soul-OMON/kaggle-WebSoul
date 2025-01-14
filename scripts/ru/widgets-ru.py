@@ -157,35 +157,22 @@ additional_widget_list = [
 #     additional_widget_list.remove(ngrok_widget)
 
 # --- CUSTOM DOWNLOAD ---
-"""Create Custom-Download Selection widgets."""
-custom_download_header_popup = factory.create_html('''
-<div class="header" style="cursor: pointer;" onclick="toggleContainer()">Кастомная Загрузка</div>
-<div class="info" id="info_dl">INFO</div>
-<div class="popup">
-    Разделите несколько URL-адресов запятой/пробелом.
-    Для <span class="file_name">пользовательского имени</span> файла/расширения укажите его через <span class="braces">[]</span> после URL без пробелов.
-    <span class="required">Для файлов обязательно укажите</span> - <span class="extension">Расширение Файла.</span>
-    <div class="sample">
-        <span class="sample_label">Пример для Файла:</span>
-        https://civitai.com/api/download/models/229782<span class="braces">[</span><span class="file_name">Detailer</span><span class="extension">.safetensors</span><span class="braces">]</span>
-        <br>
-        <span class="sample_label">Пример для Расширения:</span>
-        https://github.com/hako-mikan/sd-webui-regional-prompter<span class="braces">[</span><span class="file_name">Regional-Prompter</span><span class="braces">]</span>
-    </div>
-</div>
-''')
+"""Create custom download widgets."""
+custom_download_header = factory.create_header('Пользовательская Загрузка')
+custom_download_widget = factory.create_text(
+    'URL:',
+    '',
+    'Введите прямые ссылки, разделенные запятыми (http://..., http://...)'
+)
+custom_download_box = factory.create_vbox([custom_download_header, custom_download_widget])
 
-Model_url_widget = factory.create_text('Model:')
-Vae_url_widget = factory.create_text('Vae:')
-LoRA_url_widget = factory.create_text('LoRa:')
-Embedding_url_widget = factory.create_text('Embedding:')
-Extensions_url_widget = factory.create_text('Extensions:')
-ADetailer_url_widget = factory.create_text('ADetailer:')
-custom_file_urls_widget = factory.create_text('Файл (txt):')
-
-# --- Save Button ---
-"""Create button widgets."""
-save_button = factory.create_button('Сохранить', class_names=["button", "button_save"])
+# --- SAVE BUTTON ---
+"""Create save button."""
+save_button = factory.create_button(
+    'Сохранить',
+    'success',
+    icon='save'
+)
 
 # ================ DISPLAY / SETTINGS ================
 
@@ -220,8 +207,9 @@ WIDGET_LIST = factory.create_vbox([
     vae_box,
     clip_box,
     additional_box,
-    custom_download_box
-], layouts=[{'width': '1080px'}]*4)
+    custom_download_box,
+    save_button
+], layouts=[{'width': '1080px'}]*6)
 factory.display(WIDGET_LIST)
 
 # ================ CALLBACK FUNCTION ================
