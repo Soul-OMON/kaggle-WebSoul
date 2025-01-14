@@ -78,8 +78,16 @@ category_widget.observe(on_category_change, names='value')
 """Create VAE selection widgets."""
 vae_header = factory.create_header('Выбор VAE')
 vae_options = read_model_data(f'{SCRIPTS}/_models-data.py', 'vae')
-vae_widget = factory.create_dropdown(vae_options, 'Vae:', '3. Blessed2.vae')
-vae_num_widget = factory.create_text('Номер Vae:', '', 'Введите номера vae для скачивания.')
+vae_widget = factory.create_dropdown(
+    options=vae_options,
+    description='Vae:',
+    value=vae_options[0] if vae_options else 'none'
+)
+vae_num_widget = factory.create_text(
+    description='Номер Vae:', 
+    value='', 
+    placeholder='Введите номера vae для скачивания.'
+)
 
 # --- ADDITIONAL ---
 """Create additional configuration widgets."""
