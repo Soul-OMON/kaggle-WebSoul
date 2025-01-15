@@ -1,11 +1,11 @@
 ## MODEL
 
 model_list = {
-    "1. Nova [Anime] [V7] [XL]": [
-        {"url": "https://civitai.com/api/download/models/994669", "name": "Nova_V7.safetensors"}
+    "1. Flux1-dev-bnb-nf4 (Включены VAE)": [
+        {"url": "https://huggingface.co/lllyasviel/flux1-dev-bnb-nf4/resolve/main/flux1-dev-bnb-nf4-v2.safetensors", "name": "flux1-dev-bnb-nf4-v2.safetensors"}
     ],
-    "2. WAI-illustrious [Anime] [V8] [XL]": [
-        {"url": "https://civitai.com/api/download/models/1183765", "name": "WAI-illustrious_V8.safetensors"}
+    "2. Flux1-dev-fp8 (Требует все VAE)": [
+        {"url": "https://huggingface.co/lllyasviel/flux1_dev/resolve/main/flux1-dev-fp8.safetensors", "name": "flux1-dev-fp8.safetensors"}
     ]
 
 }
@@ -13,8 +13,14 @@ model_list = {
 ## VAE
 
 vae_list = {
-    "1. sdxl.vae": [
-        {"url": "https://civitai.com/api/download/models/333245", "name": "sdxl.vae.safetensors"}
+        "1. t5xxl fp8": [
+        {"url": "https://huggingface.co/lllyasviel/flux_text_encoders/resolve/main/t5xxl_fp8_e4m3fn.safetensors", "name": "t5xxl_fp8_e4m3fn.safetensors"}
+    ],
+       "2. ae": [
+        {"url": "https://huggingface.co/black-forest-labs/FLUX.1-dev/resolve/main/ae.safetensors", "name": "ae.safetensors"}
+    ],
+       "3. clip_l": [
+        {"url": "https://huggingface.co/lllyasviel/flux_text_encoders/resolve/main/clip_l.safetensors", "name": "clip_l.safetensors"}
     ]
 }
 
