@@ -60,7 +60,7 @@ HR = widgets.HTML('<hr>')
 """Создание виджетов выбора модели."""
 model_header = factory.create_header('Выбор Модели')
 model_options = read_model_data(f'{SCRIPTS}/_models-data.py', 'model')
-model_widget = factory.create_dropdown(model_options, 'Модель:', '4. Counterfeit [Anime] [V3] + INP')
+model_widget = factory.create_dropdown(model_options, 'Модель:', '4. Counterfeit [Anime] [V3]')
 model_num_widget = factory.create_text('Номер Модели:', '', 'Введите номера моделей для скачивания.')
 inpainting_model_widget = factory.create_checkbox('Inpainting Модели', False, class_names=['inpaint'])
 XL_models_widget = factory.create_checkbox('SDXL', False, class_names=['sdxl'])
