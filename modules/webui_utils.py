@@ -37,6 +37,7 @@ def _set_webui_paths(ui):
 
     model_dir = models / checkpoint
     vae_dir = models / vae
+    clip_dir = models / clip
     lora_dir = models / lora
     embed_dir = models / embed if ui == 'ComfyUI' else webui / embed
     extension_dir = webui / extension
