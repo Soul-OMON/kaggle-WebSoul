@@ -21,6 +21,9 @@ vae_list = {
     ],
        "3. clip_l": [
         {"url": "https://huggingface.co/lllyasviel/flux_text_encoders/resolve/main/clip_l.safetensors", "name": "clip_l.safetensors"}
+    ],
+       "4. t5xxl_fp16": [
+        {"url": "https://huggingface.co/lllyasviel/flux_text_encoders/resolve/main/t5xxl_fp16.safetensors", "name": "t5xxl_fp16.safetensors"}
     ]
 }
 
