@@ -496,6 +496,7 @@ def handle_submodels(selection, num_selection, model_dict, dst_dir, url):
 line = ""
 line = handle_submodels(model, model_num, model_list, model_dir, line)
 line = handle_submodels(vae, vae_num, vae_list, vae_dir, line)
+line = handle_submodels(clip, clip_num, clip_list, clip_dir, line)
 line = handle_submodels(controlnet, controlnet_num, controlnet_list, control_dir, line)
 
 ''' file.txt - added urls '''
